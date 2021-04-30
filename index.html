@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Read List</title>
+    <link rel="stylesheet" href="scss/styles.scss">
+</head>
+
+<body>
+    <main class="app">
+        <section class="search">
+            <header class="search__header">
+                <input type="text" class="search__field" placeholder="enter book">
+            </header>
+            <div class="search__results-wrap">
+                <ul class="search__results"></ul>
+                <div class="search__results-loader">
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <footer class="search__results-info">
+                <p>Books: <span>0</span></p>
+            </footer>
+
+        </section>
+        <section class="book-info">
+
+        </section>
+        <section class="read-list">
+            <h2 class="read-list__title">To Read...</h2>
+        </section>
+    </main>
+
+    <script src="js/index.js" type="module"></script>
+</body>
+
+</html>
