@@ -46,9 +46,12 @@
         height: 100%;
 
         &-item {
-            margin: 5px 0;
-            padding: 10px;
+            padding: 15px 10px;
             cursor: pointer;
+
+            &:hover {
+                background-color: #f0f0f0;
+            }
 
             &.active {
                 background-color: #fff;
@@ -67,6 +70,7 @@
         justify-content: center;
         background-color: rgba(255, 255, 255, .6);
         opacity: 0;
+
         .lds-roller {
             display: inline-block;
             position: relative;
@@ -175,6 +179,9 @@
 
 
     &__results-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         flex: 1 0 3em;
     }
 }

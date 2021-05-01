@@ -11,26 +11,28 @@ export class App {
         const searchResult = document.querySelector('.search__results');
         const loader = document.querySelector('.search__results-loader');
 
+        //Render results list on user querry 
         searchField.addEventListener('keyup', (event) => {
-            if (event.code === 'Enter') {
-                this.prevBook = null;
+            if (event.code !== 'Enter') return;
+            this.prevBook = null;
 
-                this.showLoading(loader, searchResult);
-                api.search(searchField.value).then(response => {
+            this.showLoading(loader, searchResult);
+            api.search(searchField.value).then(response => {
 
-                    response.docs.forEach(book => {
-                        book.id = book.key.split('/').pop();
-                    });
-
-                    this.state = response;
-                    new SearchBooks(this.state).render();
-                    this.hideLoading(loader, searchResult);
+                response.docs.forEach(book => {
+                    book.id = book.key.split('/').pop();
                 });
-            }
+
+                this.state = response;
+                new SearchBooks(this.state).render();
+                this.hideLoading(loader, searchResult);
+            });
+
         });
 
         searchResult.addEventListener('click', (event) => {
             if (event.target.tagName !== 'LI') return;
+
             const el = event.target;
             const list = event.currentTarget;
             const currentBook = this.state.docs.find(item => item.id === el.id);
@@ -41,21 +43,20 @@ export class App {
             }
 
             this.prevBook = currentBook;
-
             new BookInfo(currentBook).render();
         });
     }
 
-    showLoading(lds, result) {
-        lds.style.zIndex = 'initial';
-        lds.style.opacity = '1';
-        result.parentElement.style.overflowY = 'hidden';
-        result.parentElement.scrollTop = 0;
+    showLoading(loader, el) {
+        loader.style.zIndex = 'initial';
+        loader.style.opacity = '1';
+        el.parentElement.style.overflowY = 'hidden';
+        el.parentElement.scrollTop = 0;
     }
 
-    hideLoading(lds, result) {
-        lds.style.zIndex = '-10';
-        lds.style.opacity = '0';
-        result.parentElement.style.overflowY = 'auto';
+    hideLoading(loader, el) {
+        loader.style.zIndex = '-10';
+        loader.style.opacity = '0';
+        el.parentElement.style.overflowY = 'auto';
     }
 }

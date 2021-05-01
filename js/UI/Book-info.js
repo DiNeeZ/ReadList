@@ -10,8 +10,8 @@ export class BookInfo {
   render() {
     this.$bookInfo.innerHTML = `
     <h2>${this.title}</h2>
-    <p>${this.subtitle}</p>
-    <p>${this.author}</p>
+    <p>${this.subtitle ? this.subtitle : ''}</p>
+    <p>${this.author ? this.author : 'author unknown'}</p>
     `;
   }
 }
