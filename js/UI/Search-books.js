@@ -4,18 +4,23 @@ export class SearchBooks {
   $totalBooks = document.querySelector('.search-info__total-books');
 
   constructor(state) {
-    this.books = state.docs;
-    this.total = state.numFound;
-    this.start = state.start;
+    this.books = state.booksFound;
+    this.total = state.totalPages;
   }
 
-  render() {
-    this.$searchResult.innerHTML = this.books.reduce((acc, curr) => {
-      return acc + `<li class='search__results-item' id=${curr.id}>${curr.title}</li>`;
+  static getHTML(books) {
+    return books.reduce((acc, book) => {
+      return acc + `<li class='search__results-item' id=${book.id}>${book.title}</li>`;
     }, '');
-    this.$totalBooks.innerText = this.total;
-    console.log(this.start);
   }
 
+  renderSearchResult() {
+    this.$searchResult.innerHTML = SearchBooks.getHTML(this.books);
+    this.$totalBooks.innerText = this.total;
+  }
 
+  addToResult() {
+    const newBooks = SearchBooks.getHTML(this.books);
+    this.$searchResult.insertAdjacentHTML('beforeend', newBooks);
+  }
 }
