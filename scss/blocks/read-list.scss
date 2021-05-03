@@ -1,4 +1,21 @@
 .read-list {
+    display: flex;
+    flex-direction: column;
     flex: 1 0 22rem;
-    background-color: #d3d3d3;
+    border-left: 1px solid rgba($white, $alpha: 0.15);
+
+    &__header {
+        flex: 1 0 5em;
+        border-bottom: 1px solid rgba($white, $alpha: 0.15);
+        background-color: rgba($color: $black, $alpha: 0.1);
+    }
+
+    &__title {
+        margin: 20px 0 0 20px;
+    }
+
+    &__items {
+        flex: 1 1 100%;
+        overflow-y: auto;
+    }
 }

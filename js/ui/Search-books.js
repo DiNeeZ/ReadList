@@ -12,7 +12,11 @@ export class SearchBooks {
 
   static getSearchResultMurkup(books) {
     return books.reduce((acc, book) => {
-      return acc + `<li class='search__results-item' id=${book.id}>${book.title}</li>`;
+      return acc + `
+      <li class='search__results-item results-item' id=${book.id}>
+        <h3 class='results-item__title'>${book.title}</h3>
+        <p class='results-item__author'>${book.author_name ? book.author_name : 'author unknown'}</p>
+      </li>`;
     }, '');
   }
 

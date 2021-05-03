@@ -3,13 +3,14 @@
     display: flex;
     flex-direction: column;
     flex: 1 0 22rem;
-    background-color: #d3d3d3;
+    border-right: 1px solid rgba($white, $alpha: 0.15);
 
     &__header {
         position: relative;
         flex: 1 0 5em;
         text-align: center;
-        background-color: #fff;
+        border-bottom: 1px solid rgba($white, $alpha: 0.15);
+        background-color: rgba($color: $black, $alpha: 0.1);
     }
 
     &__field {
@@ -17,35 +18,38 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 20em;
+        width: 18em;
         z-index: 1;
         padding: .5em .7em;
         font-size: 16px;
         font-weight: 300;
         font-style: italic;
         letter-spacing: .1em;
-        color: rgb(54, 54, 54);
-        border: 1px solid #ececec;
+        color: $white;
+        border: 1px solid transparent;
         border-radius: 5px;
         outline: none;
-        background-color: #ececec;
+        background-color: rgba($primary, $alpha: 0.3);
         transition: all .2s ease-in-out;
+
+        &::placeholder {
+            color: rgba($white, $alpha: 0.5);
+        }
 
         &:focus,
         &:hover {
-            background-color: lighten(#ececec, 3%);
-            border: 1px solid #e2e2e2;
+            background-color: rgba($primary, $alpha: 0.4);
+            border: 1px solid rgba($white, $alpha: 0.3);
         }
     }
 
     &__results-wrap {
-        // position: relative;
+        position: relative;
         flex: 1 1 100%;
         overflow-y: auto;
     }
 
     &__results {
-        position: relative;
         height: 100%;
 
         &::after {
@@ -55,15 +59,30 @@
         }
 
         &-item {
-            padding: 15px 10px;
+            margin-left: 20px;
+            margin-right: 5px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color .1s ease-in;
+            
+            &:not(:last-child) {
+                border-bottom: 1px solid rgba($white, $alpha: 0.15);
+            }
+
+            .results-item__title {
+                padding: 20px 0 10px 10px;
+            }
+
+            .results-item__author {
+                padding: 10px 0 20px 10px;
+            }
 
             &:hover {
-                background-color: #f0f0f0;
+                background-color: rgba($color: $black, $alpha: 0.1);
             }
 
             &.active {
-                background-color: #fff;
+                background-color: rgba($color: $black, $alpha: 0.15);
             }
         }
 
@@ -76,7 +95,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba($color: #fff, $alpha: 0.3);
+            background-color: rgba($color: #fff, $alpha: 0.05);
             opacity: 0;
     
             .loader-spinner {
@@ -190,14 +209,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex: 1 0 3em;
+        flex: 1 0 5em;
+        border-top: 1px solid rgba($white, $alpha: 0.15);
+        background-color: rgba($color: $black, $alpha: 0.1);
     }
 
     &__loader-wave {
         position: absolute;
         display: flex;
         left: 50%;
-        bottom: 3rem;
+        bottom: 5.5em;
         transform: translateX(-50%);
         justify-content: center;
         opacity: 0;
@@ -208,7 +229,7 @@
         }
           
         div {
-            background-color: #ececec;
+            background-color: $primary;
             border-radius: 50%;
             margin: 6px;
             height: 12px;

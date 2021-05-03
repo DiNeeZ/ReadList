@@ -1,5 +1,5 @@
-import { SearchBooks } from './UI/Search-books';
-import { BookInfo } from './UI/Book-info'
+import { SearchBooks } from './ui/Search-books';
+import { BookInfo } from './ui/Book-info'
 
 export class App {
     state = {
@@ -41,10 +41,11 @@ export class App {
             });
         }, 1000));
 
+        //Show book info by click on search result item
         searchResult.addEventListener('click', (event) => {
-            if (event.target.tagName !== 'LI') return;
+            if (event.target.parentElement.tagName !== 'LI') return;
 
-            const el = event.target;
+            const el = event.target.parentElement;
             const list = event.currentTarget;
             const currentBook = this.state.booksFound.find(item => item.id === el.id);
 
