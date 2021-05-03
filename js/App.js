@@ -4,12 +4,12 @@ import { BookInfo } from './UI/Book-info'
 export class App {
     state = {
         booksFound: [],
+        numFound: null,
         pageNum: null,
         totalPages: null,
         totalBooks: null
     };
     prevBook;
-    searchBooks;
     currentQuerry;
 
     constructor(api) {
@@ -17,25 +17,27 @@ export class App {
         const searchField = document.querySelector('.search__field');
         const scrollBlock = document.querySelector('.search__results-wrap');
         const searchResult = document.querySelector('.search__results');
-        const loader = document.querySelector('.search__results-loader');
+        const loaderSpinner = document.querySelector('.search__results-loader-spinner');
+        const loaderWave = document.querySelector('.search__loader-wave');
 
         //Render results list on user querry 
         searchField.addEventListener('keyup', this.debounce((event) => {
             if (event.target.value.length <= 2) return; //User querry must be at least 3 symbols
+            event.target.blur();
 
             this.prevBook = null;
             this.currentQuerry = searchField.value;
             this.state.pageNum = 1;
-            this.showLoading(loader, searchResult);
+            this.showLoaderSpinner(loaderSpinner, searchResult);
 
             api.search(this.currentQuerry, this.state.pageNum).then(response => {
                 response.docs.forEach(book => { book.id = book.key.split('/').pop(); });
 
                 this.state.booksFound = response.docs;
+                this.state.numFound = response.numFound;
                 this.state.totalPages = Math.ceil(response.numFound / 100);
-                this.searchBooks = new SearchBooks(this.state);
-                this.searchBooks.renderSearchResult();
-                this.hideLoading(loader, searchResult);
+                new SearchBooks(this.state).renderSearchResult();
+                this.hideLoaderSpinner(loaderSpinner, searchResult);
             });
         }, 1000));
 
@@ -59,14 +61,16 @@ export class App {
         scrollBlock.addEventListener('scroll', this.debounce(() => {
             const { scrollTop, scrollHeight, clientHeight } = scrollBlock;
 
-            if ((scrollTop + clientHeight >= scrollHeight - 50) && this.hasMoreBooks(this.state.pageNum, this.state.totalPages)) {
+            if ((scrollTop + clientHeight >= scrollHeight) &&
+                this.state.pageNum < this.state.totalPages) {
                 this.state.pageNum++;
-
+                loaderWave.classList.add('show');
                 api.search(this.currentQuerry, this.state.pageNum).then(response => {
                     response.docs.forEach(book => { book.id = book.key.split('/').pop(); });
                     this.state.booksFound = [...this.state.booksFound, ...response.docs];
 
-                    this.searchBooks.addToResult();
+                    new SearchBooks(this.state, response.docs).addToResult();
+                    loaderWave.classList.remove('show');
                 });
             }
         }, 500));
@@ -82,20 +86,16 @@ export class App {
         };
     }
 
-    showLoading(loader, el) {
+    showLoaderSpinner(loader, el) {
         loader.style.zIndex = 'initial';
         loader.style.opacity = '1';
         el.parentElement.style.overflowY = 'hidden';
         el.parentElement.scrollTop = 0;
     }
 
-    hideLoading(loader, el) {
+    hideLoaderSpinner(loader, el) {
         loader.style.zIndex = '-10';
         loader.style.opacity = '0';
         el.parentElement.style.overflowY = 'auto';
-    }
-
-    hasMoreBooks(pageNum, totalPages) {
-        return totalPages === 0 || pageNum < totalPages;
     }
 }
