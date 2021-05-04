@@ -1,57 +1,58 @@
 .book-info {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
 
-    &__header {
-        display: flex;
-        align-items: center;
-        flex: 1 0 5em;
-        border-bottom: 1px solid rgba($white, $alpha: 0.15);
-        background-color: rgba($color: $black, $alpha: 0.1);
+  &__header {
+    display: flex;
+    align-items: center;
+    flex: 1 0 5em;
+    border-bottom: 1px solid rgba($white, $alpha: 0.15);
+    background-color: rgba($color: $black, $alpha: 0.1);
+  }
+
+  &__title {
+    margin-left: 25px;
+  }
+
+  &__content {
+    flex: 1 1 100%;
+    margin: 30px 30px 0 30px;
+  }
+
+  .book {
+    &__top {
+      margin-bottom: 60px;
+      text-align: center;
     }
 
     &__title {
-        margin-left: 25px;
+      margin-bottom: 15px;
+      font-size: 1.5em;
     }
 
-    &__content {
-        flex: 1 1 100%;
-        margin: 30px 30px 0 30px;
+    &__subtitle {
+      margin-bottom: 10px;
+      font-style: italic;
     }
 
-    .book {
-        &__top {
-            margin-bottom: 60px;
-            text-align: center;
-        }
-
-        &__title {
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-
-        &__subtitle {
-            margin-bottom: 10px;
-            font-style: italic;
-        }
-
-        &__author {
-            font-size: 1.2em;
-        }
-
-        &__center {
-            display: flex;
-            align-items: center;
-
-            &-cover {
-                flex: 0 0 auto;
-                width: 20rem;
-                height: 31rem;
-                margin-right: 20px;
-                object-fit: contain;
-                object-position: center;
-            }
-        }
+    &__author {
+      font-size: 1.2em;
     }
+
+    &__center {
+      display: flex;
+      align-items: center;
+
+      &-cover {
+        flex: 0 0 auto;
+        width: 20rem;
+        height: 33rem;
+        margin-right: 20px;
+        object-fit: cover;
+        object-position: center;
+        background-color: $white;
+      }
+    }
+  }
 }
