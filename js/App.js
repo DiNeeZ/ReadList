@@ -58,7 +58,7 @@ export class App {
             new BookInfo(currentBook).render();
         });
 
-        //Add books to search result on scroll
+        //Add books to search results on scroll
         scrollBlock.addEventListener('scroll', this.debounce(() => {
             const { scrollTop, scrollHeight, clientHeight } = scrollBlock;
 
