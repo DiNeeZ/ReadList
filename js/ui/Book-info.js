@@ -1,3 +1,5 @@
+const coverBook = require('../../images/plug-cover.jpg');
+
 export class BookInfo {
   $bookInfoContent = document.querySelector('.book-info__content');
 
@@ -6,15 +8,22 @@ export class BookInfo {
     this.subtitle = book.subtitle;
     this.author = book.author_name;
     this.coverId = book.cover_i;
+    this.year = book.first_publish_year;
   }
 
-  static getImageURL(id) {
+  static getImage(id, title, author, year) {
     const IMAGE_URL = 'http://covers.openlibrary.org/b/';
-    let cover = id ? cover = id : false;
+    const plugImage = `
+    <img class='book__center-img' src=${coverBook} alt='book cover' />
+    <div class='book__center-img-text cover-text'>
+      <p class='cover-text__title'>${title}</p>
+      <p class='cover-text__author'>${author ? author : 'author unknown'}</p>
+      <p class='cover-text__year'>${year}</p>
+    </div>
+    `;
+    const realImage = `<img class='book__center-img' src='${IMAGE_URL}id/${id}-L.jpg' alt='book cover' />`;
 
-    let imageURL = cover ? `${IMAGE_URL}id/${cover}-L.jpg` :
-      `https://images-na.ssl-images-amazon.com/images/I/615DhAjN7sL.jpg`;
-    return imageURL;
+    return id ? realImage : plugImage;
   }
 
   render() {
@@ -25,7 +34,10 @@ export class BookInfo {
       <p class='book__author'>${this.author ? this.author : 'author unknown'}</p>
     </div>
     <div class='book__center'>
-      <img class='book__center-cover' src=${BookInfo.getImageURL(this.coverId)} alt='book cover'></img>
+      <div class='book__center-wrap'>
+        <div class='activity'></div>
+        ${BookInfo.getImage(this.coverId, this.title, this.author, this.year)}
+      </div>      
       <p class='book__center-text'>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
         Placeat deserunt optio cum reiciendis, quaerat ad illo tenetur, animi voluptate consequuntur alias non? 
@@ -33,9 +45,13 @@ export class BookInfo {
       </p>
     </div>
     <div class='book__bottom'>
-      <button>Add Book To Read List</button>
+      <button class='book__bottom-btn'>Add Book To Read List</button>
     </div>
     `;
 
+    const bookImage = this.$bookInfoContent.querySelector('.book__center-img')
+    bookImage.addEventListener('load', (event) => {
+      event.target.classList.add('load');
+    });
   }
 }
