@@ -12,13 +12,12 @@ export class BookInfo {
     const IMAGE_URL = 'http://covers.openlibrary.org/b/';
     let cover = id ? cover = id : false;
 
-    let imageURL = cover ? `${IMAGE_URL}id/${cover}-L.jpg` : 
-    `https://images-na.ssl-images-amazon.com/images/I/615DhAjN7sL.jpg`;
+    let imageURL = cover ? `${IMAGE_URL}id/${cover}-L.jpg` :
+      `https://images-na.ssl-images-amazon.com/images/I/615DhAjN7sL.jpg`;
     return imageURL;
   }
 
   render() {
-    BookInfo.getImageURL();
     this.$bookInfoContent.innerHTML = `
     <div class='book__top'>
       <h2 class='book__title'>${this.title}</h2>
@@ -34,6 +33,7 @@ export class BookInfo {
       </p>
     </div>
     <div class='book__bottom'>
+      <button>Add Book To Read List</button>
     </div>
     `;
 
