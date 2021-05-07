@@ -9,6 +9,8 @@ export class BookInfo {
     this.author = book.author_name;
     this.coverId = book.cover_i;
     this.year = book.first_publish_year;
+    this.years = book.publish_year;
+    this.languages = book.language;
   }
 
   static getImage(id, title, author, year) {
@@ -27,6 +29,9 @@ export class BookInfo {
   }
 
   render() {
+    const publishYears = this.years ? this.years.join(', ') : '...'; 
+    const languages = this.languages ? this.languages.join(', ') : '...'; 
+
     this.$bookInfoContent.innerHTML = `
     <div class='book__top'>
       <h2 class='book__title'>${this.title}</h2>
@@ -38,11 +43,10 @@ export class BookInfo {
         <div class='activity'></div>
         ${BookInfo.getImage(this.coverId, this.title, this.author, this.year)}
       </div>      
-      <p class='book__center-text'>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-        Placeat deserunt optio cum reiciendis, quaerat ad illo tenetur, animi voluptate consequuntur alias non? 
-        Distinctio officia debitis eligendi aut minus nihil alias.
-      </p>
+      <div class='book__center-text book-descr'>
+        <p class='book-descr__years'><span>Years published:</span> ${publishYears}</p>
+        <p class='book-descr__languages'><span>Languages avaible:</span> ${languages}</p>
+      </div>
     </div>
     <div class='book__bottom'>
       <button class='book__bottom-btn'>Add Book To Read List</button>
