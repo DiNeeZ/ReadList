@@ -11,6 +11,14 @@ export class BookInfo {
     this.year = book.first_publish_year;
     this.years = book.publish_year;
     this.languages = book.language;
+    this.id = book.id;
+
+    this.$bookInfoContent.addEventListener('click', (event) => {
+      if (!event.target.classList.contains('book__bottom-btn')) return;
+
+      event.target.disabled = true;
+      event.target.innerText = 'This book is in your list.'
+    });
   }
 
   static getImage(id, title, author, year) {
@@ -29,14 +37,15 @@ export class BookInfo {
   }
 
   render() {
-    const publishYears = this.years ? this.years.join(', ') : '...'; 
-    const languages = this.languages ? this.languages.join(', ') : '...'; 
+    const publishYears = this.years ? this.years.join(', ') : '...';
+    const languages = this.languages ? this.languages.join(', ') : '...';
+    const author = this.author ? this.author.join(', ') : 'author unknown';
 
     this.$bookInfoContent.innerHTML = `
     <div class='book__top'>
       <h2 class='book__title'>${this.title}</h2>
       <p class='book__subtitle'>${this.subtitle ? this.subtitle : ''}</p>
-      <p class='book__author'>${this.author ? this.author : 'author unknown'}</p>
+      <p class='book__author'>${author}</p>
     </div>
     <div class='book__center'>
       <div class='book__center-wrap'>

@@ -209,6 +209,17 @@
           background-repeat: no-repeat;
           background-size: cover;
         }
+
+        &:disabled {
+          background-color: rgba($color: $black, $alpha: 0.05);
+          transform: translate(2px, 2px);
+          box-shadow: 0px 0px 1px rgba($black, $alpha: 0.6);
+          cursor: not-allowed;
+
+          &::before {
+            background-image: url('../images/icons/check.png');
+          }
+        }
       }
     }
   }

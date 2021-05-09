@@ -15,7 +15,7 @@ export class SearchBooks {
       return acc + `
       <li class='search__results-item results-item' id=${book.id}>
         <h3 class='results-item__title'>${book.title}</h3>
-        <p class='results-item__author'>${book.author_name ? book.author_name : 'author unknown'}</p>
+        <p class='results-item__author'>${book.author_name ? book.author_name.join(', ') : 'author unknown'}</p>
       </li>`;
     }, '');
   }

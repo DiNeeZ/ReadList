@@ -1,15 +1,18 @@
-import { SearchBooks } from './ui/Search-books';
-import { BookInfo } from './ui/Book-info'
+import { SearchBooks } from './ui/search-books';
+import { BookInfo } from './ui/book-info';
+import { ReadList } from './ui/read-list';
+import { BookStorage } from './book-storage';
 
 export class App {
     state = {
         booksFound: [],
+        storedBooks: [],
         numFound: null,
         pageNum: null,
         totalPages: null,
         totalBooks: null
     };
-    prevBook;
+    currentBook;
     currentQuerry;
 
     constructor(api) {
@@ -19,13 +22,14 @@ export class App {
         const searchResult = document.querySelector('.search__results');
         const loaderSpinner = document.querySelector('.search__results-loader-spinner');
         const loaderWave = document.querySelector('.search__loader-wave');
+        const bookContainer = document.querySelector('.book');
 
         //Render results list on user querry 
         searchField.addEventListener('keyup', this.debounce((event) => {
             if (event.target.value.length <= 2) return; //User querry must be at least 3 symbols
             event.target.blur();
 
-            this.prevBook = null;
+            this.currentBook = null;
             this.currentQuerry = searchField.value;
             this.state.pageNum = 1;
             this.showLoaderSpinner(loaderSpinner, searchResult);
@@ -50,11 +54,11 @@ export class App {
             const currentBook = this.state.booksFound.find(item => item.id === el.id);
 
             el.classList.add('active');
-            if (this.prevBook) {
-                list.querySelector('#' + this.prevBook.id).classList.remove('active');
+            if (this.currentBook) {
+                list.querySelector('#' + this.currentBook.id).classList.remove('active');
             }
 
-            this.prevBook = currentBook;
+            this.currentBook = currentBook;
             new BookInfo(currentBook).render();
         });
 
@@ -75,6 +79,15 @@ export class App {
                 });
             }
         }, 500));
+
+        //Add book to read list
+        bookContainer.addEventListener('click', (event) => {
+            if (!event.target.classList.contains('book__bottom-btn')) return;
+
+            const bookListItem = new ReadList(this.currentBook).showBook();
+            this.state.storedBooks.push(bookListItem);
+            BookStorage.addBook(this.state.storedBooks);
+        });
 
     }
 
