@@ -11,6 +11,7 @@ export class BookInfo {
     this.year = book.first_publish_year;
     this.years = book.publish_year;
     this.languages = book.language;
+    this.publisher = book.publisher;
     this.id = book.id;
 
     this.$bookInfoContent.addEventListener('click', (event) => {
@@ -40,6 +41,7 @@ export class BookInfo {
     const publishYears = this.years ? this.years.join(', ') : '...';
     const languages = this.languages ? this.languages.join(', ') : '...';
     const author = this.author ? this.author.join(', ') : 'author unknown';
+    const publisher = this.publisher ? this.publisher.join(', ') : '...';
 
     this.$bookInfoContent.innerHTML = `
     <div class='book__top'>
@@ -52,9 +54,10 @@ export class BookInfo {
         <div class='activity'></div>
         ${BookInfo.getImage(this.coverId, this.title, this.author, this.year)}
       </div>      
-      <div class='book__center-text book-descr'>
+      <div class='book__center-text book-descr scroll'>
         <p class='book-descr__years'><span>Years published:</span> ${publishYears}</p>
         <p class='book-descr__languages'><span>Languages avaible:</span> ${languages}</p>
+        <p class='book-descr__publisher'><span>Publisher:</span> ${publisher}</p>
       </div>
     </div>
     <div class='book__bottom'>

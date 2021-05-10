@@ -1,38 +1,27 @@
 export class ReadList {
-  $readList = document.querySelector('.read-list__items');
 
-  constructor(book) {
-    const { title, subtitle, author_name: author, id } = book;
-    this.title = title;
-    this.subtitle = subtitle ? subtitle : '';
-    this.author = author ? author.join(', ') : 'author unknown';
-    this.id = id;
-    this.isRead = false;
+  static renderReadList(books, el) {
+    el.innerHTML = books.reduce((acc, book) => {
+      return acc + ReadList.getReadListItem(book);
+    }, '');
   }
 
   static getReadListItem(book) {
-    const bookItem = document.createElement('li');
-    bookItem.classList.add('read-list__item');
-    bookItem.innerHTML = `
-      <h3>${book.title}</h3>
-      <p>${book.subtitle}</p>
-      <p>${book.author}</p>
+
+    const bookItem = `
+      <li class='read-list__item list-item'>
+        <h3 class='list-item__title'>${book.title}</h3>
+        <p class='list-item__subtitle'>${book.subtitle}</p>
+        <p class='list-item__author'>${book.author}</p>
+        <p class='list-item__date'>Was added <span>${book.date} - ${book.time}</span></p>
+        <div class='list-item__btn-group'>
+          <a class='list-item__btn list-item__btn--mark-as-read'>Mark As Read</a>
+          <a class='list-item__btn list-item__btn--remove' aria-label='remove book'></a>
+        </div>
+      </li>
     `;
 
     return bookItem;
   }
 
-  showBook() {
-    const book = {
-      title: this.title,
-      subtitle: this.subtitle,
-      author: this.author,
-      id: this.id,
-      isRead: this.isRead
-    }
-
-    this.$readList.appendChild(ReadList.getReadListItem(book));
-
-    return book;
-  }
 }

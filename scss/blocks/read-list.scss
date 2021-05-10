@@ -21,8 +21,75 @@
 
     &__item {
         margin: 10px;
-        padding: 10px;
+        padding: 10px 15px;
         background-color: rgba($color: $black, $alpha: 0.15);
         border-radius: 5px;
+    }
+}
+
+.list-item {
+    &__title {
+        margin-bottom: 10px;
+    }
+
+    &__subtitle {
+        color: rgba($primary, $alpha: 0.5);
+        font-style: italic;
+        margin-bottom: 5px;
+    }
+
+    &__author {
+        margin-bottom: 10px;
+    }
+
+    &__date {
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+
+        span {
+            margin-left: 1rem;
+            color: rgba($primary, $alpha: 0.5);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.13rem;
+        }
+    }
+
+    &__btn-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__btn {
+        padding: 5px 10px;
+        border-radius: 3px;
+        background-color: rgba($white, $alpha: 0.2);
+        cursor: pointer;
+        transition: background-color .2s ease-in;
+
+        &:hover {
+            background-color: rgba($white, $alpha: 0.15);
+        }
+
+        &--remove {
+            position: relative;
+            background-color: transparent;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: block;
+                width: 25px;
+                height: 25px;
+                background-image: url('../images/icons/trash.png');
+                background-size: contain;
+            }
+        }
     }
 }

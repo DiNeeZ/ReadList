@@ -2,6 +2,7 @@ import { SearchBooks } from './ui/search-books';
 import { BookInfo } from './ui/book-info';
 import { ReadList } from './ui/read-list';
 import { BookStorage } from './book-storage';
+import { Book } from './book';
 
 export class App {
     state = {
@@ -23,6 +24,13 @@ export class App {
         const loaderSpinner = document.querySelector('.search__results-loader-spinner');
         const loaderWave = document.querySelector('.search__loader-wave');
         const bookContainer = document.querySelector('.book');
+        const readList = document.querySelector('.read-list__items');
+
+        //Init read list from local storage
+        document.addEventListener('DOMContentLoaded', () => {
+            this.state.storedBooks = BookStorage.getBooks();
+            ReadList.renderReadList(this.state.storedBooks, readList);
+        });
 
         //Render results list on user querry 
         searchField.addEventListener('keyup', this.debounce((event) => {
@@ -83,9 +91,10 @@ export class App {
         //Add book to read list
         bookContainer.addEventListener('click', (event) => {
             if (!event.target.classList.contains('book__bottom-btn')) return;
-
-            const bookListItem = new ReadList(this.currentBook).showBook();
-            this.state.storedBooks.push(bookListItem);
+            const book = new Book(this.currentBook);
+            this.state.storedBooks.unshift(book);
+            console.log(this.state.storedBooks);
+            ReadList.renderReadList(this.state.storedBooks, readList);
             BookStorage.addBook(this.state.storedBooks);
         });
 
