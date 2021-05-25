@@ -92,4 +92,28 @@
             }
         }
     }
+
+    &--read {
+        position: relative;
+        color: rgba($primary, $alpha: 0.5);
+        background-color: rgba($mint, $alpha: 0.1);
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 25px;
+            height: 25px;
+            background-image: url('../images/icons/checked.png');
+            background-size: contain;
+        }
+
+        .list-item {
+
+            &__btn-group {
+                justify-content: flex-end;
+            }
+        }
+    }
 }

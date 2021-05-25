@@ -4,7 +4,7 @@ export class Book {
     const dt = new Date();
 
     this.title = title;
-    this.subtitle = subtitle ? subtitle : '';
+    this.subtitle = subtitle || '';
     this.author = author ? author.join(', ') : 'author unknown';
     this.id = id;
     this.isRead = false;

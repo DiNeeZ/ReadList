@@ -1,8 +1,9 @@
 import { SearchBooks } from './ui/search-books';
 import { BookInfo } from './ui/book-info';
 import { ReadList } from './ui/read-list';
-import { BookStorage } from './book-storage';
+import { BookStorage } from './services/storage';
 import { Book } from './book';
+import { Error } from './ui/errors';
 
 export class App {
     state = {
@@ -48,7 +49,16 @@ export class App {
                 this.state.booksFound = response.docs;
                 this.state.numFound = response.numFound;
                 this.state.totalPages = Math.ceil(response.numFound / 100);
-                new SearchBooks(this.state).renderSearchResult();
+
+                if (this.state.numFound > 0) {
+                    new SearchBooks(this.state).renderSearchResult();
+                } else {
+                    Error.showEmptyResultMsg(searchResult);
+                }
+
+                this.hideLoaderSpinner(loaderSpinner, searchResult);
+            }).catch(err => {
+                Error.showApiErrorMsg(err, searchResult);
                 this.hideLoaderSpinner(loaderSpinner, searchResult);
             });
         }, 1000));
@@ -60,14 +70,13 @@ export class App {
             const el = event.target.parentElement;
             const list = event.currentTarget;
             const currentBook = this.state.booksFound.find(item => item.id === el.id);
-
             el.classList.add('active');
             if (this.currentBook) {
                 list.querySelector('#' + this.currentBook.id).classList.remove('active');
             }
 
             this.currentBook = currentBook;
-            new BookInfo(currentBook).render();
+            new BookInfo(currentBook, this.state.storedBooks).render();
         });
 
         //Add books to search results on scroll
@@ -93,9 +102,25 @@ export class App {
             if (!event.target.classList.contains('book__bottom-btn')) return;
             const book = new Book(this.currentBook);
             this.state.storedBooks.unshift(book);
-            console.log(this.state.storedBooks);
             ReadList.renderReadList(this.state.storedBooks, readList);
-            BookStorage.addBook(this.state.storedBooks);
+            BookStorage.addBooksToStorage(this.state.storedBooks);
+        });
+
+        //Mark a book as read in read list and delete book
+        readList.addEventListener('click', (event) => {
+            const bookId = event.target.parentElement.parentElement.id;
+
+            if (event.target.classList.contains('list-item__btn--mark-as-read')) {
+                ReadList.markAsRead(bookId, this.state.storedBooks, readList);
+                BookStorage.addBooksToStorage(this.state.storedBooks);
+            } else if (event.target.classList.contains('list-item__btn--remove')) {
+
+                ReadList.removeBookFromList(bookId, this.state.storedBooks, readList);
+                BookStorage.addBooksToStorage(this.state.storedBooks);
+
+            } else {
+                return;
+            }
         });
 
     }
@@ -121,4 +146,5 @@ export class App {
         loader.style.opacity = '0';
         el.parentElement.style.overflowY = 'auto';
     }
+
 }

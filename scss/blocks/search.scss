@@ -85,7 +85,7 @@
                 background-color: rgba($color: $black, $alpha: 0.15);
             }
         }
-
+        
         &-loader-spinner {
             position: absolute;
             top: 0;
@@ -95,7 +95,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba($color: #fff, $alpha: 0.05);
+            background-color: rgba($color: #fff, $alpha: 0.09);
             opacity: 0;
     
             .loader-spinner {
@@ -255,4 +255,26 @@
         }
     }
     
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+
+    &__icon {
+        max-width: 50%;
+        margin-bottom: 20px;
+    }
+
+    &__text {
+        text-align: center;
+        font-size: 24px;
+        line-height: 32px;
+    }
 }

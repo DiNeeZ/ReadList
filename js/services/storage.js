@@ -10,7 +10,7 @@ export class BookStorage {
     return books;
   }
 
-  static addBook(books) {
+  static addBooksToStorage(books) {
     localStorage.setItem('readList', JSON.stringify(books));
   }
 }
