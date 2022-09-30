@@ -3,13 +3,11 @@
     display: flex;
     flex-direction: column;
     flex: 1 0 22rem;
-    border-right: 1px solid rgba($white, $alpha: 0.15);
 
     &__header {
         position: relative;
         flex: 1 0 5em;
         text-align: center;
-        border-bottom: 1px solid rgba($white, $alpha: 0.15);
         background-color: rgba($color: $black, $alpha: 0.1);
     }
 
@@ -20,17 +18,17 @@
         transform: translate(-50%, -50%);
         width: 18em;
         z-index: 1;
-        padding: .5em .7em;
+        padding: 0.5em 0.7em;
         font-size: 16px;
         font-weight: 300;
         font-style: italic;
-        letter-spacing: .1em;
+        letter-spacing: 0.1em;
         color: $white;
         border: 1px solid transparent;
         border-radius: 5px;
         outline: none;
         background-color: rgba($primary, $alpha: 0.3);
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
 
         &::placeholder {
             color: rgba($white, $alpha: 0.5);
@@ -47,26 +45,28 @@
         position: relative;
         flex: 1 1 100%;
         overflow-y: auto;
+        background-color: rgba($color: $black, $alpha: 0.05);
     }
 
     &__results {
         height: 100%;
 
         &::after {
-            content: '';
+            content: "";
             display: block;
             height: 2rem;
         }
 
         &-item {
-            margin-left: 20px;
-            margin-right: 5px;
-            border-radius: 5px;
+            // margin-left: 20px;
+            // margin-right: 5px;
+            padding: 0 12px;
             cursor: pointer;
-            transition: background-color .1s ease-in;
-            
-            &:not(:last-child) {
-                border-bottom: 1px solid rgba($white, $alpha: 0.15);
+            transition: background-color 0.1s ease-in;
+
+            &:nth-child(odd) {
+                // border-bottom: 1px solid rgba($white, $alpha: 0.15);
+                background-color: rgba($color: $black, $alpha: 0.025);
             }
 
             .results-item__title {
@@ -85,7 +85,7 @@
                 background-color: rgba($color: $black, $alpha: 0.15);
             }
         }
-        
+
         &-loader-spinner {
             position: absolute;
             top: 0;
@@ -97,17 +97,17 @@
             justify-content: center;
             background-color: rgba($color: #fff, $alpha: 0.09);
             opacity: 0;
-    
+
             .loader-spinner {
                 display: inline-block;
                 width: 80px;
                 height: 80px;
-    
+
                 div {
                     animation: loader-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
                     transform-origin: 40px 40px;
-    
-                    &::after{
+
+                    &::after {
                         content: " ";
                         display: block;
                         position: absolute;
@@ -117,92 +117,90 @@
                         background-color: #ececec;
                         margin: -4px 0 0 -4px;
                     }
-    
+
                     &:nth-child(1) {
                         animation-delay: -0.036s;
-    
+
                         &::after {
                             top: 63px;
                             left: 63px;
                         }
                     }
-    
+
                     &:nth-child(2) {
                         animation-delay: -0.072s;
-    
+
                         &::after {
                             top: 68px;
                             left: 56px;
                         }
                     }
-    
+
                     &:nth-child(3) {
                         animation-delay: -0.108s;
-    
+
                         &::after {
                             top: 71px;
                             left: 48px;
                         }
                     }
-    
+
                     &:nth-child(4) {
                         animation-delay: -0.144s;
-    
+
                         &::after {
                             top: 72px;
                             left: 40px;
                         }
                     }
-    
+
                     &:nth-child(5) {
                         animation-delay: -0.18s;
-    
+
                         &::after {
                             top: 71px;
                             left: 32px;
                         }
                     }
-    
+
                     &:nth-child(6) {
                         animation-delay: -0.216s;
-    
+
                         &::after {
                             top: 68px;
                             left: 24px;
                         }
                     }
-    
+
                     &:nth-child(7) {
                         animation-delay: -0.252s;
-    
+
                         &::after {
                             top: 63px;
                             left: 17px;
                         }
                     }
-    
+
                     &:nth-child(8) {
                         animation-delay: -0.288s;
-    
+
                         &::after {
                             top: 56px;
                             left: 12px;
                         }
                     }
-                  }
-              }
-              
-              @keyframes loader-spinner {
+                }
+            }
+
+            @keyframes loader-spinner {
                 0% {
-                  transform: rotate(0deg);
+                    transform: rotate(0deg);
                 }
                 100% {
-                  transform: rotate(360deg);
+                    transform: rotate(360deg);
                 }
-              }
+            }
         }
-
-        
     }
 
     &__info {
@@ -210,7 +208,6 @@
         justify-content: center;
         align-items: center;
         flex: 1 0 5em;
-        border-top: 1px solid rgba($white, $alpha: 0.15);
         background-color: rgba($color: $black, $alpha: 0.1);
     }
 
@@ -222,19 +219,19 @@
         transform: translateX(-50%);
         justify-content: center;
         opacity: 0;
-        transition: opacity .3s ease-in;
-          
+        transition: opacity 0.3s ease-in;
+
         &.show {
             opacity: 1;
         }
-          
+
         div {
             background-color: $primary;
             border-radius: 50%;
             margin: 6px;
             height: 12px;
             width: 12px;
-            animation: jump .6s ease-in infinite;
+            animation: jump 0.6s ease-in infinite;
             &:nth-of-type(2) {
                 animation-delay: 0.1s;
             }
@@ -242,19 +239,18 @@
                 animation-delay: 0.2s;
             }
         }
-          
-          
+
         @keyframes jump {
-            0%, 100% {
+            0%,
+            100% {
                 transform: translateY(0);
             }
-            
+
             50% {
                 transform: translateY(-10px);
             }
         }
     }
-    
 }
 
 .error {
@@ -265,7 +261,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
 
     &__icon {
         max-width: 50%;

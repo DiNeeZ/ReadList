@@ -9,7 +9,7 @@
   "author": "De",
   "license": "ISC",
   "devDependencies": {
-    "parcel-bundler": "^1.12.5",
-    "sass": "^1.32.12"
+    "@parcel/transformer-sass": "^2.7.0",
+    "parcel": "^2.7.0"
   }
 }
