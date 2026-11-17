@@ -1,4 +1,4 @@
-const sadIcon = require('../../images/sad.png');
+import sadIcon from '../../images/sad.png';
 
 export class Error {
 
