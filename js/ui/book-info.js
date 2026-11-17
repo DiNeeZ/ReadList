@@ -1,4 +1,4 @@
-const coverBook = require('../../images/plug-cover.jpg');
+import coverBook from '../../images/plug-cover.jpg';
 
 export class BookInfo {
   $bookInfoContent = document.querySelector('.book-info__content');

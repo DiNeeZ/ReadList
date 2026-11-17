@@ -198,7 +198,7 @@
           transform: translateY(-50%);
           width: 25px;
           height: 25px;
-          background-image: url('../images/icons/add.png');
+          background-image: url('../../images/icons/add.png');
           background-repeat: no-repeat;
           background-size: cover;
         }
@@ -209,7 +209,7 @@
           cursor: not-allowed;
 
           &::before {
-            background-image: url('../images/icons/check.png');
+            background-image: url('../../images/icons/check.png');
           }
         }
       }
